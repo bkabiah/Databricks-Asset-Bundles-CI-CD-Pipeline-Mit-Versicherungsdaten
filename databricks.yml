@@ -1,0 +1,41 @@
+bundle:
+  name: insurance_doc_pipeline
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://dbc-f2a67aec-3b7f.cloud.databricks.com/browse/folders/workspace?o=7474650979709056
+
+resources:
+  jobs:
+    insurance_doc_job:
+      name: Insurance Document Analysis Pipeline (Serverless)
+      
+      # Serverless Environment Definition (Enterprise Standard!)
+      # Wir definieren ein Environment, das die Cloud als Serverless erkennt.
+      environments:
+        - environment_key: serverless_env
+          spec:
+            environment_version: "2" # Steht für das neueste Databricks Serverless Runtime
+
+      tasks:
+        - task_key: bronze_ingest
+          spark_python_task:
+            python_file: src/bronze_ingest.py
+          environment_key: serverless_env # <-- Verknüpft den Task mit Serverless
+          
+        - task_key: silver_transform
+          depends_on:
+            - task_key: bronze_ingest
+          spark_python_task:
+            python_file: src/silver_transform.py
+          environment_key: serverless_env
+          
+        - task_key: gold_aggregate
+          depends_on:
+            - task_key: silver_transform
+          spark_python_task:
+            python_file: src/gold_aggregate.py
+          environment_key: serverless_env

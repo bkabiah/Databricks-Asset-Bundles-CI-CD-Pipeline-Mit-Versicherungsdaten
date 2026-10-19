@@ -1,0 +1,21 @@
+# Virtuelle Umgebung
+.venv/
+databricks_env/
+
+# Python Cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Databricks Bundle temporäre Dateien
+.databricks/
+
+# IDE-Dateien
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS-Dateien
+.DS_Store
+Thumbs.db
