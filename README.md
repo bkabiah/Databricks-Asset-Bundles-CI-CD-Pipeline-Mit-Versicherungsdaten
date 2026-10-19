@@ -137,7 +137,7 @@ graph TD
 
 ### Lokales Setup
 
-```bash
+bash
 # Projekt klonen
 git clone <repo-url>
 cd insurance_doc_pipeline
