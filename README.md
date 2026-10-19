@@ -15,7 +15,7 @@ Die Pipeline nutzt **Databricks Asset Bundles (DAB)** für CI/CD, **Serverless C
 - **Architektur:** Medallion (Bronze, Silver, Gold)
 - **Compliance:** DSGVO-konforme PII-Maskierung
 
-## 🏛️ Architektur-Diagramm
+##  Architektur-Diagramm
 
 ```mermaid
 graph TD
