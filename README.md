@@ -1,5 +1,5 @@
 
-# Versicherung Dokumenten Analyse Pipeline (Databricks Asset Bundles)
+# Versicherungsdokumenten Analyse Pipeline (Databricks Asset Bundles)
 
 ## Projektübersicht
 
