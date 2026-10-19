@@ -1,0 +1,60 @@
+name: Databricks Bundle CI/CD
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 1. Code auschecken
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 2. Python Environment einrichten
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      # 3. Abhängigkeiten installieren
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest pyspark databricks-cli databricks-sdk
+
+      # 4. Pytest ausführen (Unit Tests für PII-Maskierung)
+      - name: Run Pytest
+        run: |
+          pytest tests/ -v
+
+      # 5. Databricks CLI installieren
+      - name: Install Databricks CLI
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+
+      # 6. Databricks CLI konfigurieren (mit Secrets)
+      - name: Configure Databricks CLI
+        run: |
+          databricks configure --token <<EOF
+          ${{ secrets.DATABRICKS_HOST }}
+          ${{ secrets.DATABRICKS_TOKEN }}
+          EOF
+
+      # 7. Bundle validieren
+      - name: Validate Databricks Bundle
+        run: databricks bundle validate --target dev
+
+      # 8. Bundle deployen (nur bei Push auf main)
+      - name: Deploy Bundle to Dev
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: databricks bundle deploy --target dev
+
+      # 9. Job ausführen (nur bei Push auf main)
+      - name: Run Insurance Pipeline
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: databricks bundle run insurance_doc_job --target dev
