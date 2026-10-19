@@ -152,3 +152,35 @@ pip install databricks-cli databricks-sdk
 # Databricks CLI authentifizieren
 databricks configure --token
 
+---
+# 📖 Architektur-Erklärung
+
+## 1. Input
+Unstrukturierte OCR-Texte aus Versicherungsdokumenten, z. B. Policen und Schadenmeldungen.
+
+## 2. Bronze Layer
+- **Raw Data Ingestion:** Import der Rohdaten.
+- **Metadaten:** Ergänzung von Informationen wie Ingestions-Zeitstempel und Quell-System.
+
+## 3. Silver Layer
+- **Textbereinigung und Normalisierung:** Bereinigung und Vereinheitlichung der OCR-Texte.
+- **DSGVO-Compliance:** Automatische PII-Maskierung (z. B. Kundennamen) mithilfe regulärer Ausdrücke.
+- **Feature Engineering:** Aufbereitung von Merkmalen für nachgelagerte KI-Modelle, z. B. zur Erkennung von „Totalschaden“.
+
+## 4. Gold Layer
+- **Business-Aggregationen:** Erstellung von Kennzahlen pro Versicherungstyp für Reporting und Modelltraining.
+
+## 5. Orchestrierung
+- **Databricks Asset Bundles (DABs):** Deklarative und versionierbare Konfiguration der Datenpipelines.
+
+## 6. CI/CD
+- **GitHub Actions:** Automatisierte Tests und Deployments bei jedem Push ins Repository.
+
+## 7. Testing
+- **Pytest Unit Tests:** Sicherstellung der Korrektheit der Datentransformationslogik.
+
+## 8. Compute
+- **Serverless Compute:** Reduzierung des Cluster-Management-Aufwands und automatisches Skalieren der Rechenressourcen.
+
+## 9. Storage
+- **Unity Catalog Managed Tables:** Zentrale Verwaltung der Tabellen mit Datenherkunftsverfolgung (*Data Lineage*) und Zugriffskontrolle.
