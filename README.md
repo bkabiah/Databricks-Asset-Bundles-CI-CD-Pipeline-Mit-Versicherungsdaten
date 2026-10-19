@@ -58,6 +58,60 @@ graph TD
 
 ```
 
+## 🏛️ Architektur-Diagramm
+
+```mermaid
+graph TD
+    A[📄 OCR-Dokumente<br/>Policen & Schäden] -->|Raw Ingestion| B[Bronze Layer<br/>insurance_bronze]
+    B -->|Bereinigung & PII-Maskierung| C[Silver Layer<br/>insurance_silver]
+    C -->|Aggregation & Features| D[Gold Layer<br/>insurance_gold]
+    D --> E{Output}
+    E -->|Business Intelligence| F[📊 Dashboards]
+    E -->|Machine Learning| G[🤖 AI-Modelle]
+    
+    style A fill:#e1f5ff
+    style B fill:#cd7f32
+    style C fill:#c0c0c0
+    style D fill:#ffd700
+    style E fill:#9370db
+    style F fill:#90ee90
+    style G fill:#ff6b6b
+    
+    subgraph "🔧 Databricks Asset Bundles (DAB)"
+        H[databricks.yml<br/>Declarative Config]
+    end
+    
+    subgraph "☁️ Serverless Compute"
+        I[environment_key:<br/>serverless_env]
+    end
+    
+    subgraph "🏛️ Unity Catalog"
+        J[Managed Tables<br/>Data Governance]
+    end
+    
+    subgraph "🔄 CI/CD Pipeline"
+        K[GitHub Actions<br/>Automated Deploy]
+    end
+    
+    subgraph "🧪 Testing"
+        L[Pytest<br/>Unit Tests]
+    end
+    
+    H -.->|Orchestrierung| B
+    H -.->|Orchestrierung| C
+    H -.->|Orchestrierung| D
+    I -.->|Compute| B
+    I -.->|Compute| C
+    I -.->|Compute| D
+    J -.->|Storage| B
+    J -.->|Storage| C
+    J -.->|Storage| D
+    K -.->|Deploy| H
+    L -.->|Testet| C
+
+```
+
+
 ## Architektur & Pipeline-Schritte
 
 ### 1. Bronze Layer (Raw Ingestion)
