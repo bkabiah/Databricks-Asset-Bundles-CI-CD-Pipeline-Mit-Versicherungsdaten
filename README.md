@@ -19,12 +19,12 @@ Die Pipeline nutzt **Databricks Asset Bundles (DAB)** für CI/CD, **Serverless C
 
 ```mermaid
 graph TD
-    A[📄 OCR-Dokumente<br/>Policen & Schäden] -->|Raw Ingestion| B[Bronze Layer<br/>insurance_bronze]
+    A[OCR-Dokumente<br/>Policen & Schäden] -->|Raw Ingestion| B[Bronze Layer<br/>insurance_bronze]
     B -->|Bereinigung & PII-Maskierung| C[Silver Layer<br/>insurance_silver]
     C -->|Aggregation & Features| D[Gold Layer<br/>insurance_gold]
     D --> E{Output}
-    E -->|Business Intelligence| F[📊 Dashboards]
-    E -->|Machine Learning| G[🤖 AI-Modelle]
+    E -->|Business Intelligence| F[Dashboards]
+    E -->|Machine Learning| G[ AI-Modelle]
     
     style A fill:#e1f5ff
     style B fill:#cd7f32
@@ -34,15 +34,15 @@ graph TD
     style F fill:#90ee90
     style G fill:#ff6b6b
     
-    subgraph "🔧 Databricks Asset Bundles (DAB)"
+    subgraph " Databricks Asset Bundles (DAB)"
         H[databricks.yml<br/>Declarative Config]
     end
     
-    subgraph "☁️ Serverless Compute"
+    subgraph " Serverless Compute"
         I[environment_key:<br/>serverless_env]
     end
     
-    subgraph "🏛️ Unity Catalog"
+    subgraph " Unity Catalog"
         J[Managed Tables<br/>Data Governance]
     end
     
@@ -74,7 +74,7 @@ graph TD
 - Erstellt Business-Metriken (Anzahl Schäden pro Versicherungstyp, durchschnittliche Textlänge)
 - Dient als Basis für BI-Dashboards und Machine-Learning-Modelltraining
 
-## 🛠️ Installation & Deployment
+##  Installation & Deployment
 
 ### Voraussetzungen
 - Python 3.8+
