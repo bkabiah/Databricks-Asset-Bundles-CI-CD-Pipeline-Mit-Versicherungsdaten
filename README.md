@@ -1,12 +1,12 @@
-# 🏢 Insurance Document Analysis Pipeline (Databricks Asset Bundles)
+# Insurance Document Analysis Pipeline (Databricks Asset Bundles)
 
-## 📋 Projektübersicht
+## Projektübersicht
 
 Dieses Projekt demonstriert eine moderne, deklarative Datenpipeline für die **Analyse und Verwaltung von Versicherungsdokumenten**. Es wurde speziell für den deutschen Versicherungsmarkt konzipiert und verarbeitet simulierte OCR-Rohdaten aus Schadenmeldungen und Policen.
 
 Die Pipeline nutzt **Databricks Asset Bundles (DAB)** für CI/CD, **Serverless Compute** via `environments`, **Unity Catalog Managed Tables** und integriert **PII-Maskierung** für DSGVO-Compliance.
 
-## 🚀 Tech Stack
+## Tech Stack
 
 - **Orchestrierung:** Databricks Asset Bundles (DAB) - Deklarative Automation
 - **Compute:** Databricks Serverless Compute (via `environment_key`)
@@ -15,7 +15,7 @@ Die Pipeline nutzt **Databricks Asset Bundles (DAB)** für CI/CD, **Serverless C
 - **Architektur:** Medallion (Bronze, Silver, Gold)
 - **Compliance:** DSGVO-konforme PII-Maskierung
 
-## 🏗️ Architektur & Pipeline-Schritte
+## Architektur & Pipeline-Schritte
 
 ### 1. Bronze Layer (Raw Ingestion)
 - Nimmt unstrukturierte OCR-Texte aus Versicherungsdokumenten auf
